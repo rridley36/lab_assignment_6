@@ -1,8 +1,22 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int search(int numbers[], int low, int high, int value) 
 {
-	return -1;
+	int median;
+	while (low <= high){
+		median = (low + high) / 2; // Calculates the middle index, which results in the median of the indexes
+		if (numbers[median] == value){
+			return median; // If the median index happened to be the value, then return the median
+		}
+		else if (numbers[median] > value){
+			return search(numbers, low, median - 1, value); // If the median index is higher than the value, the high will adjust to one lower index than current median value
+		}
+		else if (numbers[median] < value){
+			return search(numbers, median + 1, high, value); // If the median index is lower than the value, the low will adjust to one higher than the current median value
+		}
+	}
+	return -1; // Return -1 if the value is not found in the list
 }
 
 void printArray(int numbers[], int sz)
